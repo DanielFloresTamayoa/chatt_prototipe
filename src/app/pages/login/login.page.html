@@ -1,0 +1,80 @@
+<ion-content [fullscreen]="true">
+  <div class="circleBase type2 circle1"></div>
+  <div class="circleBase type1"></div>
+  <div class="circleBase type2 circle2"></div>
+
+  <ion-label class="welcomeMessage">
+    <ion-text color="light">Bienvenido de nuevo,</ion-text> 
+    <ion-text color="white">
+      <p>Iniciar sesión!</p>
+    </ion-text>
+  </ion-label> 
+
+  <form [formGroup]="form">
+    <ion-list lines="none" class="ion-margin ion-padding ion-text-center">
+      <ion-item class="ion-margin-vertical">
+        <ion-icon 
+          name="mail-outline" slot="end" color="medium">
+        </ion-icon>
+        <ion-input 
+          formControlName="email" 
+          placeholder="Introduzca la dirección de correo electrónico">
+        </ion-input>
+      </ion-item>
+      <ion-text   
+        class="ion-text-left"
+        color="danger"
+        *ngIf="!form.get('email').valid && form.get('email').touched">
+        <p class="error">*Ingrese la dirección de correo electrónico adecuada</p>
+      </ion-text>
+
+      <ion-item class="ion-margin-vertical">
+        <ion-icon (click)="onChange()"
+          [name]="isTypePassword ? 'lock-closed-outline' : 'lock-open-outline'" 
+          slot="end" 
+          [color]="isTypePassword ? 'medium' : 'primary'">
+        </ion-icon>
+        <ion-input 
+          formControlName="password" 
+          [type]="isTypePassword ? 'password' : 'text'"
+          placeholder="Introducir la contraseña">
+        </ion-input>
+      </ion-item>
+      <ion-text 
+        class="ion-text-left"
+        color="danger"
+        *ngIf="!form.get('password').valid && form.get('password').touched">
+        <p 
+          class="error" 
+          *ngIf="form.get('password').invalid && form.get('password').errors['required']">
+          *Por favor, introduzca su contraseña
+        </p>
+        <p 
+          class="error" 
+          *ngIf="form.get('password').dirty">
+          *La contraseña debe tener al menos 8 caracteres
+        </p>
+      </ion-text>
+
+      <ion-row class="ion-margin-vertical">
+        <ion-col size="6" class="alignItems">
+          <div align=left>
+            <ion-checkbox></ion-checkbox>
+            <ion-note>Acuérdate de mí</ion-note>
+          </div>
+        </ion-col>
+        <ion-col size="6">
+          <div align=right>
+            <ion-note>¿Se te olvidó tu contraseña?</ion-note>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-button color="primary" shape="round" (click)="onSubmit()">Iniciar sesión</ion-button>
+      <p class="signup">
+        <ion-note>
+          ¿No eres miembro todavía? <ion-text routerLink="/login/signup" color="primary">Inscribirse</ion-text>
+        </ion-note>
+      </p>
+    </ion-list>
+  </form>
+</ion-content>

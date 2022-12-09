@@ -1,0 +1,70 @@
+<ion-content [fullscreen]="true">
+  <div class="circleBase type2 circle1"></div>
+  <div class="circleBase type1"></div>
+  <div class="circleBase type2 circle2"></div>
+
+  <ion-label class="welcomeMessage">
+    <ion-text color="light">Hola,</ion-text>
+    <ion-text color="white">
+      <p>Inscribete!</p>
+    </ion-text>
+  </ion-label>
+
+  <ion-icon name="arrow-back-outline" color="light" class="backButton" routerLink="/login">
+
+  </ion-icon>
+
+  <form [formGroup]="signupForm">
+    <ion-list lines="none" class="ion-margin ion-padding ion-text-center">
+      <ion-item class="ion-margin-vertical">
+        <ion-icon name="person-outline" slot="end" color="medium">
+        </ion-icon>
+        <ion-input formControlName="username" placeholder="Introduzca su nombre de usuario">
+        </ion-input>
+      </ion-item>
+      <ion-text class="ion-text-left" color="danger"
+        *ngIf="!signupForm.get('username').valid && signupForm.get('username').touched">
+        <p class="error">*Por favor ingrese nombre de usuario</p>
+      </ion-text>
+
+      <ion-item class="ion-margin-vertical">
+        <ion-icon name="mail-outline" slot="end" color="medium">
+        </ion-icon>
+        <ion-input formControlName="email" placeholder="Introduzca la dirección de correo electrónico">
+        </ion-input>
+      </ion-item>
+      <ion-text class="ion-text-left" color="danger"
+        *ngIf="!signupForm.get('email').valid && signupForm.get('email').touched">
+        <p class="error">*Ingrese la dirección de correo electrónico adecuada</p>
+      </ion-text>
+
+      <ion-item class="ion-margin-vertical">
+        <ion-icon (click)="onChange()" [name]="isTypePassword ? 'lock-closed-outline' : 'lock-open-outline'" slot="end"
+          [color]="isTypePassword ? 'medium' : 'primary'">
+        </ion-icon>
+        <ion-input formControlName="password" [type]="isTypePassword ? 'password' : 'text'"
+          placeholder="Introducir la contraseña">
+        </ion-input>
+      </ion-item>
+      <ion-text class="ion-text-left" color="danger"
+        *ngIf="!signupForm.get('password').valid && signupForm.get('password').touched">
+        <p class="error" *ngIf="signupForm.get('password').invalid && signupForm.get('password').errors['required']">
+          *Por favor, introduzca su contraseña
+        </p>
+        <p class="error" *ngIf="signupForm.get('password').dirty">
+          *La contraseña debe tener al menos 8 caracteres
+        </p>
+      </ion-text>
+
+      <ion-row class="ion-margin-vertical">
+        <ion-col size="12" class="alignItems">
+          <div align=left>
+            <ion-checkbox></ion-checkbox>
+            <ion-note>Acepto la política y los términos</ion-note>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-button color="primary" shape="round" (click)="onSubmit()">Inscribirse</ion-button>
+    </ion-list>
+  </form>
+</ion-content>
